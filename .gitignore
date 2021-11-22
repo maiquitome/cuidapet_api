@@ -9,3 +9,5 @@ build/
 doc/api/
 
 .env
+
+mysql_data
