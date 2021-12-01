@@ -8,8 +8,11 @@ environment:
 
 dependencies:
   args: ^2.0.0
+  build_runner: ^2.1.5
   dotenv: ^3.0.0
   get_it: ^7.2.0
+  injectable: ^1.5.0
+  injectable_generator: ^1.5.2
   logger: ^1.1.0
   mysql1: ^0.19.2
   shelf: ^1.1.0
