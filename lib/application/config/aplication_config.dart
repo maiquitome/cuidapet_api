@@ -2,11 +2,14 @@ import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:get_it/get_it.dart';
 
 import './database_connection_configuration.dart';
+import '../logger/i_logger.dart';
+import '../logger/logger.dart';
 
 class ApplicationConfig {
   void loadConfigApplication() async {
     await _loadEnv();
     _loadDatabaseConfig();
+    _configLogger();
   }
 
   Future<void> _loadEnv() async => load();
@@ -19,8 +22,10 @@ class ApplicationConfig {
       password: env['DATABASE_PASSWORD'] ?? env['databasePassword']!,
       databaseName: env['DATABASE_NAME'] ?? env['databaseName']!,
     );
-    
+
     GetIt.I.registerSingleton(databaseConfig);
   }
-  
+
+  void _configLogger() =>
+      GetIt.I.registerLazySingleton<ILogger>(() => Logger());
 }
