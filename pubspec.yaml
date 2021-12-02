@@ -16,6 +16,8 @@ dependencies:
   logger: ^1.1.0
   mysql1: ^0.19.2
   shelf: ^1.1.0
+  shelf_router: ^1.1.2
+  shelf_router_generator: ^1.0.1
 
 dev_dependencies:
   pedantic: ^1.10.0

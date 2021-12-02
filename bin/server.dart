@@ -5,6 +5,7 @@ import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
 
 import 'package:cuidapet_api_dart/application/config/aplication_config.dart';
+import 'package:shelf_router/shelf_router.dart';
 
 // For Google Cloud Run, set _hostname to '0.0.0.0'.
 // const _hostname = 'localhost';
@@ -27,16 +28,18 @@ void main(List<String> args) async {
     return;
   }
 
+  final router = Router();
   final appConfig = ApplicationConfig();
-  appConfig.loadConfigApplication();
+  appConfig.loadConfigApplication(router);
+
+  router.get('/hello', (shelf.Request request) {
+    return shelf.Response.ok('Hello Maiqui');
+  });
 
   var handler = const shelf.Pipeline()
       .addMiddleware(shelf.logRequests())
-      .addHandler(_echoRequest);
+      .addHandler(router);
 
   var server = await io.serve(handler, _hostname, port);
   print('Serving at http://${server.address.host}:${server.port}');
 }
-
-shelf.Response _echoRequest(shelf.Request request) =>
-    shelf.Response.ok('Request for "${request.url}"');
