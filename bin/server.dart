@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
-
-import 'package:cuidapet_api_dart/application/config/aplication_config.dart';
 import 'package:shelf_router/shelf_router.dart';
+
+import 'package:cuidapet_api_dart/application/middlewares/cors/cors_middlewares.dart';
+import 'package:cuidapet_api_dart/application/config/aplication_config.dart';
 
 // For Google Cloud Run, set _hostname to '0.0.0.0'.
 // const _hostname = 'localhost';
@@ -37,6 +38,7 @@ void main(List<String> args) async {
   });
 
   var handler = const shelf.Pipeline()
+      .addMiddleware(CorsMiddlewares().handler)
       .addMiddleware(shelf.logRequests())
       .addHandler(router);
 
