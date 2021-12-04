@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:cuidapet_api_dart/application/middlewares/defaultContentType/default_content_type.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
 
+import 'package:cuidapet_api_dart/application/middlewares/defaultContentType/default_content_type.dart';
+import 'package:cuidapet_api_dart/application/middlewares/security/security_middleware.dart';
 import 'package:cuidapet_api_dart/application/middlewares/cors/cors_middlewares.dart';
 import 'package:cuidapet_api_dart/application/config/aplication_config.dart';
 
@@ -30,20 +32,25 @@ void main(List<String> args) async {
     return;
   }
 
-  final router = Router();
-  final appConfig = ApplicationConfig();
-  appConfig.loadConfigApplication(router);
+  final Router router = Router();
+  final ApplicationConfig appConfig = ApplicationConfig();
+  await appConfig.loadConfigApplication(router);
+
+  final GetIt getIt = GetIt.I;
 
   router.get('/hello', (shelf.Request request) {
     return shelf.Response.ok('Hello Maiqui');
   });
 
-  var handler = const shelf.Pipeline()
+  dynamic handler = const shelf.Pipeline()
       .addMiddleware(CorsMiddlewares().handler)
-      .addMiddleware(DefaultContentType('application/json;charset=utf-8').handler)
+      .addMiddleware(
+        DefaultContentType('application/json;charset=utf-8').handler,
+      )
+      .addMiddleware(SecurityMiddleware(getIt.get()).handler)
       .addMiddleware(shelf.logRequests())
       .addHandler(router);
 
-  var server = await io.serve(handler, _hostname, port);
+  HttpServer server = await io.serve(handler, _hostname, port);
   print('Serving at http://${server.address.host}:${server.port}');
 }

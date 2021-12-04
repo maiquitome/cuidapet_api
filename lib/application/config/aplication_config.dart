@@ -9,7 +9,7 @@ import '../logger/i_logger.dart';
 import '../logger/logger.dart';
 
 class ApplicationConfig {
-  void loadConfigApplication(Router router) async {
+  Future<void> loadConfigApplication(Router router) async {
     await _loadEnv();
     _loadDatabaseConfig();
     _configLogger();
