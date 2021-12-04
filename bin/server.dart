@@ -15,15 +15,15 @@ import 'package:cuidapet_api_dart/application/config/aplication_config.dart';
 // const _hostname = 'localhost';
 
 // para responder tanto pelo IP como pelo LOCALHOST
-const _hostname = '0.0.0.0';
+const String _hostname = '0.0.0.0';
 
 void main(List<String> args) async {
-  var parser = ArgParser()..addOption('port', abbr: 'p');
-  var result = parser.parse(args);
+  ArgParser parser = ArgParser()..addOption('port', abbr: 'p');
+  ArgResults result = parser.parse(args);
 
   // For Google Cloud Run, we respect the PORT environment variable
-  var portStr = result['port'] ?? Platform.environment['PORT'] ?? '4000';
-  var port = int.tryParse(portStr);
+  dynamic portStr = result['port'] ?? Platform.environment['PORT'] ?? '4000';
+  int? port = int.tryParse(portStr);
 
   if (port == null) {
     stdout.writeln('Could not parse port value "$portStr" into a number.');

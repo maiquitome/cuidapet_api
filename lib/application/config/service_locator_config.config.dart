@@ -16,7 +16,7 @@ import 'database_connection_configuration.dart'
 /// initializes the registration of provided dependencies inside of [GetIt]
 _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
-  final gh = _i2.GetItHelper(get, environment, environmentFilter);
+  final dynamic gh = _i2.GetItHelper(get, environment, environmentFilter);
   gh.lazySingleton<_i3.IDatabaseConnection>(
       () => _i4.DatabaseConnection(get<_i5.DatabaseConnectionConfiguration>()));
   return get;

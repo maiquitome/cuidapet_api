@@ -10,10 +10,10 @@ class DefaultContentType extends Middlewares {
 
   @override
   Future<Response> execute(Request request) async {
-    final response = await innerHandler(request);
+    final Response response = await innerHandler(request);
 
     return response.change(
-      headers: {'content-type': contentType},
+      headers: <String, String>{'content-type': contentType},
     );
   }
 }

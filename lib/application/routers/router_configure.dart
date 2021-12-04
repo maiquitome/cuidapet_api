@@ -4,7 +4,7 @@ import './i_router.dart';
 
 class RouterConfigure {
   final Router _router;
-  final List<IRouter> _routers = [
+  final List<IRouter> _routers = <IRouter>[
     // UserRouter(),
     // CategoriesRouter(),
     // SupplierRouter(),
@@ -14,5 +14,5 @@ class RouterConfigure {
 
   RouterConfigure(this._router);
 
-  void configure() => _routers.forEach((r) => r.configure(_router));
+  void configure() => _routers.forEach((IRouter r) => r.configure(_router));
 }

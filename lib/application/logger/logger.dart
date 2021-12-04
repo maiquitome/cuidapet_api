@@ -2,10 +2,10 @@ import './i_logger.dart';
 import 'package:logger/logger.dart' as log;
 
 class Logger implements ILogger {
-  late final _logger;
+  late final dynamic _logger;
 
   Logger() {
-    var release = true;
+    bool release = true;
     assert(() {
       release = false;
       return true;
@@ -16,18 +16,18 @@ class Logger implements ILogger {
   }
 
   @override
-  void debug(message, [error, StackTrace? stackTrace]) =>
+  void debug(dynamic message, [dynamic error, StackTrace? stackTrace]) =>
       _logger.d(message, error, stackTrace);
 
   @override
-  void error(message, [error, StackTrace? stackTrace]) =>
+  void error(dynamic message, [dynamic error, StackTrace? stackTrace]) =>
       _logger.e(message, error, stackTrace);
 
   @override
-  void info(message, [error, StackTrace? stackTrace]) =>
+  void info(dynamic message, [dynamic error, StackTrace? stackTrace]) =>
       _logger.i(message, error, stackTrace);
 
   @override
-  void warning(message, [error, StackTrace? stackTrace]) =>
+  void warning(dynamic message, [dynamic error, StackTrace? stackTrace]) =>
       _logger.w(message, error, stackTrace);
 }

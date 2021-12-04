@@ -20,7 +20,7 @@ class ApplicationConfig {
   Future<void> _loadEnv() async => load();
 
   void _loadDatabaseConfig() {
-    final databaseConfig = DatabaseConnectionConfiguration(
+    final DatabaseConnectionConfiguration databaseConfig = DatabaseConnectionConfiguration(
       host: env['DATABASE_HOST'] ?? env['databaseHost']!,
       user: env['DATABASE_USER'] ?? env['databaseUser']!,
       port: int.tryParse(env['DATABASE_PORT'] ?? env['databaseHost']!) ?? 0,

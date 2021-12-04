@@ -9,7 +9,7 @@ class CorsMiddlewares extends Middlewares {
   // ---------------------
   // HEADERS DE SEGURANÇA:
   // ---------------------
-  final Map<String, String> headers = {
+  final Map<String, String> headers = <String, String>{
     // -----------------------------------------
     // Essa checagem é feita somente no browser.
     // -----------------------------------------
@@ -41,7 +41,7 @@ class CorsMiddlewares extends Middlewares {
     // -------------------------------------------------------------------
 
     // executa a requisição
-    final response = await innerHandler(request);
+    final Response response = await innerHandler(request);
 
     // print('Respondendo para o cliente CrossDomain');
 
